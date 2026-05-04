@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <style>
+        body {
+            background-color: #161616; /* Dark theme */
+            color: #FFC107; /* Amber accent */
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        button {
+            background-color: #FFC107; /* Amber accent */
+            border: none;
+            color: #161616;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #e0a800;
+        }
+        #joke {
+            margin-top: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Random Joke Generator</h1>
+    <button id="jokeButton">Get a Joke</button>
+    <div id="joke"></div>
+    <script>
+        document.getElementById('jokeButton').addEventListener('click', function() {
+            fetch('https://official-joke-api.appspot.com/random_joke')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('joke').innerHTML = `<p>${data.setup} - ${data.punchline}</p>`;
+                })
+                .catch(error => {
+                    document.getElementById('joke').innerHTML = '<p>Error fetching joke. Please try again.</p>';
+                });
+        });
+    </script>
+</body>
+</html>
